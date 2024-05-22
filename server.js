@@ -21,6 +21,7 @@ io.on('connection', (socket) => {
     socket.on('join', (login) => {
         users.push({ name: login, id: socket.id })
         console.log('Oh, I\'ve got something from...');
+        socket.broadcast.emit('message', { content: `<i>${login} joined the chat</i>` });
     });
     socket.on('disconnect', () => {
         console.log('Oh, socket ' + socket.id + ' has left')
@@ -43,4 +44,3 @@ const messages = [
 const users = [
     
 ];
-console.log('users:', users);

@@ -27,7 +27,6 @@ const login = (e) => {
     }
     console.log('loged in as '+ userName);
 }
-
 function addMessage(author, content) {
     const message = document.createElement('li');
     message.classList.add('message')
@@ -49,13 +48,12 @@ function sendMessage(e) {
     
     let messageContent = messageContentInput.value;
     
-    if (!messageContent.length) {
-        alert('You have to type something!');
-    }
-    else {
+    if (messageContent.length){
         addMessage(userName, messageContent);
         socket.emit('message', { author: userName, content: messageContent })
         messageContentInput.value = '';
+    } else {
+        alert('You have to type something!');
     }
 }
 loginForm.addEventListener('submit', login);
