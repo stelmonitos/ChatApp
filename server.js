@@ -23,8 +23,9 @@ io.on('connection', (socket) => {
         console.log('Oh, I\'ve got something from...');
         socket.broadcast.emit('message', { author: 'ChatBot', content: `<i>${login} joined the chat</i>` });
     });
-    socket.on('disconnect', () => {
+    socket.on('disconnect', (name) => {
         console.log('Oh, socket ' + socket.id + ' has left')
+        socket.broadcast.emit('message', { author: 'ChatBot', content: `<i> ${name} has left the conversation... :(</i>` });
         users.splice(users.indexOf(socket.id), 1);
     });
     console.log('I\'ve added a listener on message and disconnect events \n');

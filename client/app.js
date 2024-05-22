@@ -27,6 +27,7 @@ const login = (e) => {
     }
     console.log('loged in as '+ userName);
 }
+
 function addMessage(author, content) {
     const message = document.createElement('li');
     message.classList.add('message')
