@@ -23,10 +23,13 @@ io.on('connection', (socket) => {
         console.log('Oh, I\'ve got something from...');
         socket.broadcast.emit('message', { author: 'ChatBot', content: `<i>${login} joined the chat</i>` });
     });
-    socket.on('disconnect', (name) => {
-        console.log('Oh, socket ' + socket.id + ' has left')
-        socket.broadcast.emit('message', { author: 'ChatBot', content: `<i> ${name} has left the conversation... :(</i>` });
-        users.splice(users.indexOf(socket.id), 1);
+    socket.on('disconnect', () => {
+        const userIndex = users.findIndex(user => user.id === socket.id);
+        if (userIndex!== -1){
+            console.log('Oh, socket ' + socket.id + ' has left')
+            socket.broadcast.emit('message', { author: 'ChatBot', content: `<i> ${users[userIndex].name} has left the conversation... :(</i>` });
+            users.splice(users.indexOf(socket.id), 1);
+        }
     });
     console.log('I\'ve added a listener on message and disconnect events \n');
 });
